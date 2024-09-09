@@ -1,5 +1,4 @@
 import React from "react";
-import { nav } from "../data";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -9,6 +8,8 @@ import {
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { FaDumbbell } from "react-icons/fa";
+import { GiBiceps } from "react-icons/gi";
 
 const Nav = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -25,24 +26,15 @@ const Nav = () => {
             <AiOutlineHome className="ml-[0.5rem]" size={26} />
           </Link>
         </li>
-        {/* <li>
+        <li>
           <Link
-            to="/antrenamente"
-            className="text-white text-body-sm hover:text-cyan-300
-           transition"
+            to="/exercises"
+            className="flex items-center text-white text-body-sm hover:text-cyan-400 transition"
           >
-            Antrenamente
+            Exerciții
+            <GiBiceps className="ml-[0.5rem]" size={26} />
           </Link>
-        </li> */}
-        {/* <li>
-          <Link
-            to="/abonamente"
-            className="text-white text-body-sm hover:text-cyan-300
-           transition"
-          >
-            Abonamente
-          </Link>
-        </li> */}
+        </li>
         <li>
           <Link
             to="/shop"

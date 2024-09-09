@@ -35,7 +35,7 @@ module.exports = {
         page: "#fcfcff",
       },
       backgroundImage: {
-        banner: "url('/src/assets/img/banner/bg.png')",
+        banner: "url('/src/assets/img/banner/bg.jpg')",
         faq: "url('/src/assets/img/faq/bg.svg')",
       },
       backgroundSize: {

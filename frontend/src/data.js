@@ -1,5 +1,5 @@
 // imagini
-import Logo from "../src/assets/img/header/logo.svg";
+import Logo from "../src/assets/img/header/logo.png";
 import ResistanceImg from "../src/assets/img/workouts/resistance.png";
 import BoxingImg from "../src/assets/img/workouts/boxing.png";
 import YogaImg from "../src/assets/img/workouts/yoga.png";
@@ -11,7 +11,6 @@ import JoinImg from "../src/assets/img/join/woman.png";
 import UsersIcn from "../src/assets/img/about/icons/users-icn.svg";
 import CalendarIcn from "../src/assets/img/workouts/icons/calendar.svg";
 import PriceIcn from "../src/assets/img/pricing/icons/price.svg";
-import CommunityIcn from "../src/assets/img/community/icons/community-icn.svg";
 import QuestionMarkIcn from "../src/assets/img/faq/icons/question-mark.svg";
 
 export const header = {
@@ -19,15 +18,6 @@ export const header = {
   btnLoginText: "Autentificare",
   btnSignupText: "Înregistrare",
 };
-
-export const nav = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/" },
-  { name: "Workouts", href: "/" },
-  { name: "Pricing", href: "/" },
-  { name: "Community", href: "/" },
-  { name: "FAQ", href: "/" },
-];
 
 export const banner = {
   titlePart1: "Depășește-ți limitele. ",
@@ -45,7 +35,7 @@ export const about = {
     "Ne remarcăm printr-o atmosferă motivațională fără rival, echipa noastră de experți și echipamentele de fitness de cea mai bună calitate, care ajută membrii noștri să își atingă obiectivele personale de fitness.",
   subtitle2:
     "Identitatea noastră autentică este folosită pentru a încuraja fiecare individ care ne trece pragul să își depășească limitele.",
-  link: "Join Now",
+  link: "",
 };
 
 export const workouts = {
@@ -62,7 +52,7 @@ export const workouts = {
     },
     {
       image: BattleRopeImg,
-      name: "Battle Rope",
+      name: "Pilates",
     },
     {
       image: YogaImg,
@@ -74,7 +64,7 @@ export const workouts = {
     },
     {
       image: FitnessImg,
-      name: "Culturism",
+      name: "Cardio",
     },
   ],
 };
@@ -124,47 +114,38 @@ export const faq = {
   title: "FAQ",
   accordions: [
     {
-      question: "How can I book a workout class?",
+      question: "Care sunt orele de funcționare?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Sala noastră este deschisă de luni până vineri în intervalul orar 7:00 - 23:00, iar sâmbătă și duminică în intervalul orar 9:00 - 21:00.",
     },
     {
-      question: "Can I pay by cash for my membership?",
+      question: "Pot să plătesc numerar pentru achiziționarea unui abonament?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Da, desigur! Poți plăti abonamentul în numerar direct la recepția sălii noastre. Asigură-te că ai la tine suma exactă, iar echipa noastră te va ajuta cu toate detaliile necesare pentru a finaliza plata și a-ți activa abonamentul pe loc. Te așteptăm!",
     },
     {
-      question: "What age do I need to be to join?",
+      question: "Oferiți clase de grup?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Da, avem o varietate de clase de grup, inclusiv yoga, pilates, Zumba, și antrenamente funcționale.",
     },
     {
-      question: "Are there any lockers?",
+      question: "Pot să fac un tur al sălii înainte de a mă înscrie?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Da, oferim tururi gratuite ale facilităților noastre. Poți veni în orice moment în timpul orelor de funcționare pentru a vizita sala și pentru a discuta cu personalul nostru despre opțiunile de abonament.",
     },
     {
-      question: "How do I cancel my membership?",
+      question: "Pot aduce un prieten să se antreneze cu mine?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Da, poți aduce un prieten folosind una dintre invitațiile tale, în funcție de tipul de abonament pe care îl ai. Verifică detaliile abonamentului pentru a vedea câte invitații sunt incluse.",
     },
     {
-      question: "Is there water available at the gym?",
+      question: "Oferiți servicii de antrenament personal?",
       answer:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae temporibus beatae, totam repudiandae nam recusandae ea dolores tempora maxime.",
+        "Da, avem antrenori personali certificați care pot crea un plan de antrenament personalizat pentru tine. Poți solicita mai multe informații la recepție.",
     },
   ],
 };
 
-export const join = {
-  image: JoinImg,
-  title: "Wanna join & have fun?",
-  subtitle:
-    "We’ll keep you updated on the things you need to know about Gymme. Nothing more, nothing less.",
-  btnText: "Join now",
-};
-
 export const footer = {
   logo: Logo,
-  copyrightText: "All rights reserved. Gymme 2022.",
 };

@@ -6,7 +6,7 @@ import { RiMenu4Fill, RiCloseFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../redux/api/usersApiSlice";
-import { logout } from "../redux/features/auth/authSlice";
+import { logout, logoutUser } from "../redux/features/auth/authSlice";
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -18,7 +18,7 @@ const Header = () => {
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
-      dispatch(logout());
+      dispatch(logoutUser());
       navigate("/login");
     } catch (error) {
       console.error(error);
@@ -47,17 +47,14 @@ const Header = () => {
         isActive ? "bg-neutral-500 py-[16px]" : "bg-transparent py-[20px]"
       } fixed w-full z-30 flex justify-between items-center px-[20px] lg:px-[45px] transition-all duration-300`}
     >
-      {/* Logo-ul în partea stângă */}
       <a href="/" className="flex-shrink-0">
         <img className="h-auto max-h-[40px] w-auto" src={logo} alt="Logo" />
       </a>
 
-      {/* Navigația în partea dreaptă */}
       <div className="flex items-center space-x-8">
         <Nav />
         {userInfo ? (
           <div className="relative hidden lg:flex">
-            {/* Ascunde numele de utilizator pe ecrane mici */}
             <button
               onClick={toggleDropdown}
               className="flex items-center text-white hover:text-cyan-400"
@@ -82,7 +79,7 @@ const Header = () => {
             </button>
 
             {dropdownOpen && (
-              <ul className="absolute right-0 mt-8 w-[8rem] bg-white text-neutral-500 shadow-lg rounded-md">
+              <ul className="absolute right-0 mt-8 w-[10rem] bg-white text-neutral-500 shadow-lg rounded-md">
                 {userInfo.isAdmin && (
                   <>
                     <li>
@@ -90,7 +87,7 @@ const Header = () => {
                         to="/admin/dashboard"
                         className="block px-4 py-2 hover:bg-gray-100 rounded-md"
                       >
-                        Dashboard
+                        Panou de control
                       </Link>
                     </li>
                     <li>
@@ -160,7 +157,6 @@ const Header = () => {
         )}
       </div>
 
-      {/* Meniu mobil */}
       <div
         onClick={() => setNavMobile(!navMobile)}
         className="lg:hidden absolute right-4"

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Message from "../../components/Message";
@@ -9,9 +9,13 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
 } from "../../redux/api/orderApiSlice";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Order = () => {
   const { id: orderId } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [stripePromise, setStripePromise] = useState(null);
 
   const {
     data: order,
@@ -26,36 +30,87 @@ const Order = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (order && !order.isPaid) {
-      // Dacă ai nevoie să încarci un script pentru un alt proces de plată, îl poți face aici
+    const fetchStripeKey = async () => {
+      const response = await fetch("/api/payment/public-key");
+      const { publicKey } = await response.json();
+      setStripePromise(loadStripe(publicKey));
+    };
+    fetchStripeKey();
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("success")) {
+      const confirmPayment = async () => {
+        try {
+          const paymentData = {
+            id: params.get("session_id"),
+            status: "COMPLETED",
+            update_time: new Date().toISOString(),
+            payer: { email_address: userInfo.email },
+          };
+
+          await payOrder({
+            orderId,
+            details: paymentData,
+          });
+
+          navigate(`/order/${orderId}`);
+          toast.success("Plata comenzii s-a realizat cu succes.");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        } catch (error) {
+          toast.error(error?.data?.message || error.message);
+        }
+      };
+
+      confirmPayment();
     }
-  }, [order]);
+  }, [location.search, orderId, payOrder, userInfo.email, navigate]);
 
   const handlePayment = async () => {
     try {
-      console.log("Initiating payment for order:", orderId);
+      const stripe = await stripePromise;
 
-      // Exemplu de simulare a unei plăți
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // După ce plata este procesată cu succes:
-      const paymentData = {
-        status: "COMPLETED",
-        update_time: new Date().toISOString(),
-        payer: { email_address: userInfo.email },
+      const body = {
+        orderId: order._id,
+        items: order.orderItems.map((item) => ({
+          name: item.name,
+          quantity: item.qty,
+          price: item.price,
+        })),
+        shippingCost: order.shippingPrice,
       };
 
-      console.log("Sending payment data:", paymentData);
+      const headers = {
+        "Content-Type": "application/json",
+      };
 
-      await payOrder({
-        orderId,
-        details: paymentData,
+      const response = await fetch("/api/payment/create-checkout-session", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
       });
 
-      refetch();
-      toast.success("Plata comenzii s-a realizat.");
+      const session = await response.json();
+
+      if (response.ok) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+
+        if (result.error) {
+          console.error(result.error.message);
+          toast.error(result.error.message);
+        }
+      } else {
+        console.error(session.error);
+        toast.error(session.error);
+      }
     } catch (error) {
-      toast.error(error?.data?.message || error.message);
+      console.error("Eroare:", error);
+      toast.error("Eroare la efectuarea plății. Încearcă din nou!");
     }
   };
 
@@ -180,10 +235,7 @@ const Order = () => {
                 <span>Livrare</span>
                 <span>{order.shippingPrice.toFixed(2)} lei</span>
               </div>
-              <div className="flex justify-between text-white mb-2">
-                <span>Taxe</span>
-                <span>{order.taxPrice.toFixed(2)} lei</span>
-              </div>
+
               <div className="flex justify-between text-white font-bold text-lg mb-2">
                 <span>Total</span>
                 <span>{order.totalPrice.toFixed(2)} lei</span>

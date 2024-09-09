@@ -8,19 +8,14 @@ function calcPrices(orderItems) {
   );
 
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxRate = 0.15;
-  const taxPrice = (itemsPrice * taxRate).toFixed(2);
 
   const totalPrice = (
-    itemsPrice +
-    shippingPrice +
-    parseFloat(taxPrice)
+    parseFloat(itemsPrice) + parseFloat(shippingPrice)
   ).toFixed(2);
 
   return {
     itemsPrice: itemsPrice.toFixed(2),
     shippingPrice: shippingPrice.toFixed(2),
-    taxPrice,
     totalPrice,
   };
 }
@@ -56,8 +51,7 @@ const createOrder = async (req, res) => {
       };
     });
 
-    const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
-      calcPrices(dbOrderItems);
+    const { itemsPrice, shippingPrice, totalPrice } = calcPrices(dbOrderItems);
 
     const order = new Order({
       orderItems: dbOrderItems,
@@ -65,7 +59,6 @@ const createOrder = async (req, res) => {
       shippingAddress,
       paymentMethod,
       itemsPrice,
-      taxPrice,
       shippingPrice,
       totalPrice,
     });
@@ -158,7 +151,6 @@ const findOrderById = async (req, res) => {
 
 const markOrderAsPaid = async (req, res) => {
   try {
-    console.log("Received payment data:", req.body);
     const order = await Order.findById(req.params.id);
 
     if (order) {
@@ -172,11 +164,11 @@ const markOrderAsPaid = async (req, res) => {
       };
 
       const updateOrder = await order.save();
-      console.log("Order updated:", updateOrder);
+
       res.status(200).json(updateOrder);
     } else {
       res.status(404);
-      console.error("Error updating order:", error);
+
       throw new Error("Comanda nu a fost găsită.");
     }
   } catch (error) {

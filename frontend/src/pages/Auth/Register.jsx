@@ -147,9 +147,7 @@ const Register = () => {
           </div>
 
           <div
-            className="w-full h-[550px] lg:bg-center
-            bg-banner bg-left
-            bg-no-repeat flex-1 mt-[5rem]"
+            className="lg:flex-1 w-full h-[600px] bg-banner bg-cover bg-center lg:ml-8"
             data-aos="fade-left"
             data-aos-delay="500"
           ></div>

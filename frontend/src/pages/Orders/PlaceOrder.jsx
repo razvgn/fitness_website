@@ -31,7 +31,6 @@ const PlaceOrder = () => {
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
       }).unwrap();
       dispatch(clearCartItems());
@@ -113,10 +112,6 @@ const PlaceOrder = () => {
               <li>
                 <span className="font-semibold text-white">Livrare: </span>
                 {cart.shippingPrice} lei
-              </li>
-              <li>
-                <span className="font-semibold text-white">Taxe: </span>
-                {cart.taxPrice} lei
               </li>
               <li>
                 <span className="font-semibold text-white">Total: </span>

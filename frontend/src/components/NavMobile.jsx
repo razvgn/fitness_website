@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { nav } from "../data";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../redux/api/usersApiSlice";
@@ -11,6 +10,8 @@ import {
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
+import { FaDumbbell } from "react-icons/fa";
+import { GiBiceps } from "react-icons/gi";
 
 const NavMobile = ({ navMobile, setNavMobile }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -66,6 +67,15 @@ const NavMobile = ({ navMobile, setNavMobile }) => {
           >
             Magazin
             <AiOutlineShopping className="ml-[1rem]" size={26} />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/exercises"
+            className="flex items-center text-white text-body-md hover:text-cyan-400 transition"
+          >
+            Exerciții
+            <GiBiceps className="ml-[0.5rem]" size={26} />
           </Link>
         </li>
         <li>

@@ -40,7 +40,7 @@ const AdminMenu = () => {
                   color: isActive ? "cyan" : "white",
                 })}
               >
-                Admin Dashboard
+                Panou de control
               </NavLink>
             </li>
             <li>

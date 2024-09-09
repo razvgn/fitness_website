@@ -67,8 +67,8 @@ const ProductDetails = () => {
       <div className="container mx-auto">
         <div className="mt-9">
           <Link
-            to="/"
-            className="text-white font-semibold hover:underline mb-4 inline-block"
+            to="/shop"
+            className="text-white font-semibold hover:underline mb-4 inline-block mt-[2rem]"
           >
             Înapoi
           </Link>

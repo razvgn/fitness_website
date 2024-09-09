@@ -33,28 +33,27 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
-      console.log(res);
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || "Email sau parolă greșită.");
     }
   };
 
   return (
-    <section className="bg-neutral-500 h-[1200px] pb-[1rem] pt-[5rem]">
+    <section className="bg-neutral-500 h-[1200px] pb-4 pt-[5rem]">
       <div className="container mx-auto h-full">
-        <div className="flex flex-col lg:flex-row items-start h-full relative">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start h-full">
           <div
-            className="text-white flex-1 z-10 pl-6 lg:pl-0"
+            className="text-white flex-1 z-10 px-6 lg:px-0 lg:w-1/2"
             data-aos="fade-down"
             data-aos-delay="500"
           >
-            <h1 className="h1 text-white mb-8 mt-[2rem]">
+            <h1 className="h1 text-white mb-8 mt-8">
               Autentificare<span className="text-cyan-400">.</span>
             </h1>
-            <form onSubmit={submitHandler} className="container w-[30rem]">
-              <div className="my-[2rem]">
+            <form onSubmit={submitHandler} className="w-full lg:w-[30rem]">
+              <div className="my-8">
                 <label htmlFor="email" className="block text-2xl text-white">
                   Adresa de Email:
                 </label>
@@ -67,7 +66,7 @@ const Login = () => {
                 />
               </div>
 
-              <div className="my-[2rem]">
+              <div className="my-8">
                 <label htmlFor="password" className="block text-2xl text-white">
                   Parola:
                 </label>
@@ -83,9 +82,7 @@ const Login = () => {
               <button
                 disabled={isLoading}
                 type="submit"
-                className="bg-cyan-400
-            text-white px-4 py-2 rounded cursor-pointer my-[1rem]
-            hover:bg-cyan-500/90 transition"
+                className="bg-cyan-400 text-white px-4 py-2 rounded cursor-pointer my-4 hover:bg-cyan-500/90 transition"
               >
                 {isLoading ? "Autentificare..." : "Intră în cont"}
               </button>
@@ -110,9 +107,7 @@ const Login = () => {
             </div>
           </div>
           <div
-            className="w-full h-[600px] lg:bg-center
-            bg-banner bg-left
-            bg-no-repeat flex-1 mt-[5rem]"
+            className="lg:flex-1 w-full h-[600px] bg-banner bg-cover bg-center lg:ml-8"
             data-aos="fade-left"
             data-aos-delay="500"
           ></div>

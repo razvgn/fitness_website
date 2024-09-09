@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { clearCartItems } from "../cart/cartSlice";
 
 const initialState = {
   userInfo: localStorage.getItem("userInfo")
@@ -14,16 +15,27 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
 
-      const expirationTime = new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
+      const expirationTime = new Date().getTime() + 30 * 24 * 60 * 60 * 1000;
       localStorage.setItem("expirationTime", expirationTime);
     },
-    logout: (state) => {
+    logout: (state, action) => {
       state.userInfo = null;
-      localStorage.clear();
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("cart");
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(clearCartItems, (state, action) => {
+      state.cartItems = [];
+    });
   },
 });
 
 export const { setCredentials, logout } = authSlice.actions;
+
+export const logoutUser = () => (dispatch) => {
+  dispatch(logout());
+  dispatch(clearCartItems());
+};
 
 export default authSlice.reducer;

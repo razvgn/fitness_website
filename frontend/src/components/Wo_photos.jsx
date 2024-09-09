@@ -18,7 +18,7 @@ const WorkoutPhotos = () => {
             <img
               src={program.image}
               alt=""
-              className="w-full h-full object-cover"
+              className="w-[320px] h-[320px] object-cover"
             />
             <div
               className="absolute left-[20px] bottom-[20px] bg-white

@@ -9,7 +9,7 @@ const About = () => {
     <section className="py-[80px] md:py-[110px] lg:pt-[140px] lg:pb-[180px]">
       <div className="container mx-auto px-[20px] lg:px-[135px]">
         <div
-          className="section-title-group justify-start"
+          className="section-title-group justify-center"
           data-aos="fade-up"
           data-aos-delay="100"
         >

@@ -45,14 +45,19 @@ const loginUser = asyncHandler(async (req, res) => {
     if (isPasswordValid) {
       createToken(res, existingUser._id);
 
-      res.status(201).json({
+      return res.status(201).json({
         _id: existingUser._id,
         username: existingUser.username,
         email: existingUser.email,
         isAdmin: existingUser.isAdmin,
       });
-      return;
+    } else {
+      res.status(401);
+      throw new Error("Email sau parolă greșită.");
     }
+  } else {
+    res.status(401);
+    throw new Error("Email sau parolă greșită.");
   }
 });
 
