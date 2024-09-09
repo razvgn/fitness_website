@@ -8,7 +8,8 @@
     "backend": "nodemon backend/index.js",
     "frontend": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "start": "node backend/index.js"
+    "start": "npm run backend",
+    "postinstall": "npm install concurrently"
   },
   "keywords": [],
   "author": "",
